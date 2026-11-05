@@ -1,0 +1,6 @@
+# 劫持规则: domain ip (不写ip则用默认目标IP)
+# * 全部；*.example.com 子域；re:正则(如 re:.*google.*)
+# selective模式: 命中才劫持，其余转发上游DNS
+*.example.com 192.168.1.100
+login.test.local 192.168.1.100
+# re:.*google.* 192.168.1.100

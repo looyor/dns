@@ -1,0 +1,47 @@
+// DNS劫持全能增强版 v8 - Chaquopy Android Studio 工程
+// 用法：在 Android Studio 新建 Empty Activity 工程，将以下文件替换/合并后编译即得 APK
+
+plugins {
+    id 'com.android.application'
+    id 'com.chaquopy.plugin' version '13.0.0'
+}
+
+android {
+    namespace 'com.lab.dnshijackfull'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.lab.dnshijackfull"
+        minSdk 21
+        targetSdk 33
+        versionCode 8
+        versionName "8.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    packagingOptions {
+        pickFirst '**/libc++_shared.so'
+    }
+}
+
+chaquopy {
+    python {
+        version "3.11.0"
+        // 引入 cryptography（需 chaquopy 支持，或通过 pip 安装）
+        packages = ["cryptography"]
+        // 将当前目录的 dns_hijack.py 和 main.py 打包进 APK
+        sourceDirs = ["../default-workspace"]
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+}
